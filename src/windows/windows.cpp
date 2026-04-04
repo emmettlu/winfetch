@@ -1,9 +1,8 @@
 #include <Registry.hpp>
-
 #include <windows.h>
 
 class car_bomb {
-private:
+  private:
     std::wstring currentVersion;
     std::wstring currentBuild;
     std::wstring buildNumber;
@@ -17,7 +16,8 @@ private:
 
         using namespace m4x1m1l14n;
         try {
-            auto key = Registry::LocalMachine->Open(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
+            auto key =
+                Registry::LocalMachine->Open(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
             currentVersion = key->GetString(L"ProductName");
             currentBuild = key->GetString(L"DisplayVersion");
             buildNumber = key->GetString(L"CurrentBuildNumber");
@@ -29,8 +29,7 @@ private:
                 processedVersion = L"Windows 11";
             }
 
-        }
-        catch (const std::exception&) {
+        } catch (const std::exception &) {
             currentVersion = L"Unknown";
             currentBuild = L"Unknown";
             buildNumber = L"Unknown";
@@ -39,8 +38,8 @@ private:
         initialized = true;
     }
 
-public:
-    static car_bomb& getInstance() {
+  public:
+    static car_bomb &getInstance() {
         static car_bomb instance;
         return instance;
     }
@@ -71,11 +70,11 @@ std::wstring getwinver() {
 }
 
 std::wstring getwinbuild() {
-	return car_bomb::getInstance().getBuild();
+    return car_bomb::getInstance().getBuild();
 }
 
 std::wstring getwinbuildnum() {
-	return car_bomb::getInstance().getBuildNumber();
+    return car_bomb::getInstance().getBuildNumber();
 }
 
 int artsel() {
@@ -83,11 +82,9 @@ int artsel() {
 
     if (version.find(L"Windows 10") != std::string::npos) {
         return 0;
-    }
-    else if (version.find(L"Windows 11") != std::string::npos) {
+    } else if (version.find(L"Windows 11") != std::string::npos) {
         return 1;
-    }
-    else {
+    } else {
         return 2;
     }
 }
