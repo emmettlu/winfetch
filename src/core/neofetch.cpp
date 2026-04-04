@@ -1,18 +1,17 @@
-#include <iostream>
-#include <windows.h>
-#include <chrono>
-#include <iomanip>
-#include <vector>
-
-#include <art.h>
-#include <Registry.hpp>
-#include <system.h> 
-#include <hardware.h>
-#include <windowsinfo.h>
-#include <display.h>
-#include <colors.h>
 #include "utils.h"
+#include <Registry.hpp>
+#include <art.h>
+#include <chrono>
+#include <colors.h>
 #include <debug.h>
+#include <display.h>
+#include <hardware.h>
+#include <iomanip>
+#include <iostream>
+#include <system.h>
+#include <vector>
+#include <windows.h>
+#include <windowsinfo.h>
 
 void render_neofetch_display(int art_type) {
 
@@ -29,9 +28,9 @@ void render_neofetch_display(int art_type) {
 
     using namespace std;
 
-    const char* plural1 = (hours == 1) ? "hour" : "hours";
-    const char* plural2 = (minutes == 1) ? "minute" : "minutes";
-    const char* plural3 = (days == 1) ? "day" : "days";
+    const char *plural1 = (hours == 1) ? "hour" : "hours";
+    const char *plural2 = (minutes == 1) ? "minute" : "minutes";
+    const char *plural3 = (days == 1) ? "day" : "days";
 
     std::wstring divider = L"--------------";
 
@@ -39,21 +38,16 @@ void render_neofetch_display(int art_type) {
 
     if (art_type == 0) {
         // Windows 10
-        art_lines = {
-            win10art01, win10art02, win10art03, win10art04, win10art05,
-            win10art06, win10art07, win10art08, win10art09, win10art10,
-            win10art11, win10art12, win10art13, win10art14, win10art15,
-            win10art16, win10art17, win10art18, win10art19, win10art20
-        };
-    }
-    else {
+        art_lines = {win10art01, win10art02, win10art03, win10art04, win10art05,
+                     win10art06, win10art07, win10art08, win10art09, win10art10,
+                     win10art11, win10art12, win10art13, win10art14, win10art15,
+                     win10art16, win10art17, win10art18, win10art19, win10art20};
+    } else {
         // Windows 11
-        art_lines = {
-            win11art01, win11art02, win11art03, win11art04, win11art05,
-            win11art06, win11art07, win11art08, win11art09, win11art10,
-            win11art11, win11art12, win11art13, win11art14, win11art15,
-            win11art16, win11art17, win11art18, win11art19
-        };
+        art_lines = {win11art01, win11art02, win11art03, win11art04, win11art05,
+                     win11art06, win11art07, win11art08, win11art09, win11art10,
+                     win11art11, win11art12, win11art13, win11art14, win11art15,
+                     win11art16, win11art17, win11art18, win11art19};
     }
 
     using namespace std;
@@ -62,23 +56,66 @@ void render_neofetch_display(int art_type) {
         art_lines.push_back(L"");
     }
 
-    setlght; wcout << art_lines[0] << setw(19) << endl;
-    setlght; wcout << art_lines[1] << setw(12 + username.length()) << right << getusername(); setdflt; cout << '@'; setlght; wcout << gethostname() << endl; setdflt;
-    setlght; wcout << art_lines[2]; setdflt; wcout << setw(26) << right << divider << endl;
-    setlght; wcout << art_lines[3] << setw(16) << right << L"OS: "; setdflt; wcout << getwinver() << endl;
-    setlght; wcout << art_lines[4] << setw(19) << right << L"Build: "; setdflt; wcout << getwinbuild() << " (" << getwinbuildnum() << ')' << endl;
-    setlght; wcout << art_lines[5] << setw(20) << right << L"Uptime: "; setdflt; cout << days << " " << plural3 << ", " << hours << " " << plural1 << ", " << minutes << " " << plural2 << endl;
-    setlght; wcout << art_lines[6] << setw(24) << right << L"Resolution: "; setdflt; cout << hw_info.horizontal << 'x' << hw_info.vertical << " @" << hw_info.hz << "Hz" << endl;
-    setlght; wcout << art_lines[7] << setw(22) << right << L"Terminal: "; setdflt; wcout << getconsole() << endl;
-    setlght; wcout << art_lines[8] << setw(17) << right << L"CPU: "; setdflt; wcout << hw_info.cpu << endl;
-    setlght; wcout << art_lines[9] << setw(17) << right << L"GPU: "; setdflt; wcout << hw_info.gpu << endl;
-    setlght; wcout << art_lines[10] << setw(20) << right << L"Memory: "; setdflt; cout << hw_info.mem_used << " MB / " << hw_info.mem_total << " MB (" << hw_info.mem_percent << "% in use)" << endl;
-    setlght; wcout << art_lines[11] << setw(18) << right << L"Disk: "; setdflt; printf("C:\\ %.2f GB (%.2f GB free)", hw_info.disk_total_gb, hw_info.disk_free_gb); cout << endl;
-    setlght; wcout << art_lines[12] << setw(13) << right; color1(); cout << endl;
-    setlght; wcout << art_lines[13] << setw(9) << right; color2(); cout << endl;
+    setlght;
+    wcout << art_lines[0] << setw(19) << endl;
+    setlght;
+    wcout << art_lines[1] << setw(12 + username.length()) << right << getusername();
+    setdflt;
+    cout << '@';
+    setlght;
+    wcout << gethostname() << endl;
+    setdflt;
+    setlght;
+    wcout << art_lines[2];
+    setdflt;
+    wcout << setw(26) << right << divider << endl;
+    setlght;
+    wcout << art_lines[3] << setw(16) << right << L"OS: ";
+    setdflt;
+    wcout << getwinver() << endl;
+    setlght;
+    wcout << art_lines[4] << setw(19) << right << L"Build: ";
+    setdflt;
+    wcout << getwinbuild() << " (" << getwinbuildnum() << ')' << endl;
+    setlght;
+    wcout << art_lines[5] << setw(20) << right << L"Uptime: ";
+    setdflt;
+    cout << days << " " << plural3 << ", " << hours << " " << plural1 << ", " << minutes << " "
+         << plural2 << endl;
+    setlght;
+    wcout << art_lines[6] << setw(24) << right << L"Resolution: ";
+    setdflt;
+    cout << hw_info.horizontal << 'x' << hw_info.vertical << " @" << hw_info.hz << "Hz" << endl;
+    setlght;
+    wcout << art_lines[7] << setw(17) << right << L"CPU: ";
+    setdflt;
+    wcout << hw_info.cpu << endl;
+    setlght;
+    wcout << art_lines[8] << setw(17) << right << L"GPU: ";
+    setdflt;
+    wcout << hw_info.gpu << endl;
+    setlght;
+    wcout << art_lines[9] << setw(20) << right << L"Memory: ";
+    setdflt;
+    cout << hw_info.mem_used << " MB / " << hw_info.mem_total << " MB (" << hw_info.mem_percent
+         << "% in use)" << endl;
+    setlght;
+    wcout << art_lines[10] << setw(18) << right << L"Disk: ";
+    setdflt;
+    printf("C:\\ %.2f GB (%.2f GB free)", hw_info.disk_total_gb, hw_info.disk_free_gb);
+    cout << endl;
+    setlght;
+    wcout << art_lines[11] << setw(13) << right;
+    color1();
+    cout << endl;
+    setlght;
+    wcout << art_lines[12] << setw(9) << right;
+    color2();
+    cout << endl;
 
     for (size_t i = 19; i < art_lines.size(); i++) {
-        setlght; wcout << art_lines[i] << endl;
+        setlght;
+        wcout << art_lines[i] << endl;
     }
 
     setdflt;

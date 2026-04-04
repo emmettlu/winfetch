@@ -57,7 +57,7 @@ if(MSVC)
     )
 
   # Debug
-  string(APPEND CMAKE_CXX_FLAGS_DEBUG "/Zi /MDd")
+  # string(APPEND CMAKE_CXX_FLAGS_DEBUG "/Zi /MDd")
 
   # Release
   string(APPEND CMAKE_CXX_FLAGS_RELEASE "/fp:fast /Gy /GL /Gw /MD /MP /Oi /Os /GR- /GS-")
@@ -80,11 +80,3 @@ add_compile_definitions(
     _CONSOLE
     _WINDOWS
 )
-
-# 输出信息
-message(STATUS "====================================")
-message(STATUS "项目名称: ${PROJECT_NAME}")
-message(STATUS "版本: ${PROJECT_VERSION}")
-message(STATUS "C++标准: ${CMAKE_CXX_STANDARD}")
-message(STATUS "编译器: ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "====================================")
