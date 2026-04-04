@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 
-project(neofetch-win
-    VERSION 1.0.0
+project(winfetch
+    VERSION 0.0.1
     DESCRIPTION "Windows系统信息展示工具"
     LANGUAGES CXX
 )
@@ -45,10 +45,10 @@ set(SOURCES
 )
 
 # 创建可执行文件
-add_executable(neofetch-win ${SOURCES})
+add_executable(winfetch ${SOURCES})
 
 # Windows系统库链接
-target_link_libraries(neofetch-win PRIVATE
+target_link_libraries(winfetch PRIVATE
     advapi32
     user32
     ws2_32
@@ -60,7 +60,7 @@ target_link_libraries(neofetch-win PRIVATE
 # MSVC编译选项
 if(MSVC)
     # 通用选项
-    target_compile_options(neofetch-win PRIVATE
+    target_compile_options(winfetch PRIVATE
         /W3
         /WX-
         /EHsc
@@ -76,16 +76,7 @@ if(MSVC)
     string(APPEND CMAKE_CXX_FLAGS_RELEASE " /Os /Oi /GL")
 
     # 链接选项
-    target_link_options(neofetch-win PRIVATE /SUBSYSTEM:CONSOLE)
-endif()
-
-# 其他编译器选项（GCC/Clang）
-if(NOT MSVC)
-    target_compile_options(neofetch-win PRIVATE
-        -Wall
-        -Wextra
-        -pedantic
-    )
+    target_link_options(winfetch PRIVATE /SUBSYSTEM:CONSOLE)
 endif()
 
 # 编译定义
