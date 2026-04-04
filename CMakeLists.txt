@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.21)
 
 project(winfetch
     VERSION 0.0.1
@@ -9,15 +9,6 @@ project(winfetch
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# MinimalRelease 构建类型配置
-set(CMAKE_CXX_FLAGS_MINIMALRELEASE "/Os /Oi /GL" CACHE STRING "MinimalRelease flags")
-set(CMAKE_EXE_LINKER_FLAGS_MINIMALRELEASE "/LTCG" CACHE STRING "MinimalRelease linker flags")
-
-# 输出目录
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 # 包含目录
 include_directories(
@@ -57,26 +48,29 @@ target_link_libraries(winfetch PRIVATE
     oleaut32
 )
 
-# MSVC编译选项
 if(MSVC)
-    # 通用选项
-    target_compile_options(winfetch PRIVATE
-        /W3
-        /WX-
-        /EHsc
+  # 通用选项
+  target_compile_options(winfetch PRIVATE
         /utf-8
-        /sdl
         /arch:AVX2
+        /MP
     )
 
-    # Debug配置
-    string(APPEND CMAKE_CXX_FLAGS_DEBUG " /Zi /Od")
+  # Debug
+  string(APPEND CMAKE_CXX_FLAGS_DEBUG "/Zi /MDd")
 
-    # Release配置
-    string(APPEND CMAKE_CXX_FLAGS_RELEASE " /Os /Oi /GL")
+  # Release
+  string(APPEND CMAKE_CXX_FLAGS_RELEASE "/fp:fast /Gy /GL /Gw /MD /MP /Oi /Os /GR- /GS-")
 
-    # 链接选项
-    target_link_options(winfetch PRIVATE /SUBSYSTEM:CONSOLE)
+  # /LTCG /MANIFEST:NO /MERGE:_RDATA=.rdata /OPT:REF /OPT:ICF
+  add_link_options(
+        $<$<CONFIG:Release>:/NORESOURCE>
+        $<$<CONFIG:Release>:/LTCG>
+        $<$<CONFIG:Release>:/MANIFEST:NO>
+        $<$<CONFIG:Release>:/MERGE:_RDATA=.rdata>
+        $<$<CONFIG:Release>:/OPT:REF>
+        $<$<CONFIG:Release>:/OPT:ICF>
+    )
 endif()
 
 # 编译定义

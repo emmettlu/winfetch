@@ -74,13 +74,8 @@ void render_neofetch_display(int art_type) {
     setlght; wcout << art_lines[9] << setw(17) << right << L"GPU: "; setdflt; wcout << hw_info.gpu << endl;
     setlght; wcout << art_lines[10] << setw(20) << right << L"Memory: "; setdflt; cout << hw_info.mem_used << " MB / " << hw_info.mem_total << " MB (" << hw_info.mem_percent << "% in use)" << endl;
     setlght; wcout << art_lines[11] << setw(18) << right << L"Disk: "; setdflt; printf("C:\\ %.2f GB (%.2f GB free)", hw_info.disk_total_gb, hw_info.disk_free_gb); cout << endl;
-    setlght; wcout << art_lines[12] << setw(19) << endl;
-    setlght; wcout << art_lines[13] << setw(19) << right << L"Mem%:  "; setdflt; membar(hw_info); cout << endl;
-    setlght; wcout << art_lines[14] << setw(19) << endl;
-    setlght; wcout << art_lines[15] << setw(19) << right << L"Disk%: "; setdflt; diskbar(hw_info); cout << endl;
-    setlght; wcout << art_lines[16] << setw(19) << endl;
-    setlght; wcout << art_lines[17] << setw(13) << right; color1(); cout << endl;
-    setlght; wcout << art_lines[18] << setw(9) << right; color2(); cout << endl;
+    setlght; wcout << art_lines[12] << setw(13) << right; color1(); cout << endl;
+    setlght; wcout << art_lines[13] << setw(9) << right; color2(); cout << endl;
 
     for (size_t i = 19; i < art_lines.size(); i++) {
         setlght; wcout << art_lines[i] << endl;

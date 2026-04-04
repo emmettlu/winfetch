@@ -28,7 +28,7 @@ std::wstring getconsole() {
     GetConsoleTitleW((WCHAR*)console, 256);
 
     std::wstring consolestring = console;
-    return console;
+    return consolestring;
 }
 
 std::chrono::milliseconds getuptime() {
