@@ -5,7 +5,7 @@
 
 void neofetch();
 
-int main(int argc, char *argv[]) {
+int main() {
     SetConsoleOutputCP(CP_UTF8);
     std::setlocale(LC_ALL, "en_US.UTF-8");
 
