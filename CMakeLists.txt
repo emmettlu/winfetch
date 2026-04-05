@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(winfetch
-    VERSION 0.0.1
-    DESCRIPTION "Windows系统信息展示工具"
+    VERSION 0.0.2
     LANGUAGES CXX
 )
 
@@ -49,28 +48,20 @@ target_link_libraries(winfetch PRIVATE
 )
 
 if(MSVC)
-  # 通用选项
   target_compile_options(winfetch PRIVATE
         /utf-8
         /arch:AVX2
         /MP
     )
 
-  # Debug
-  # string(APPEND CMAKE_CXX_FLAGS_DEBUG "/Zi /MDd")
-
   # Release
-  string(APPEND CMAKE_CXX_FLAGS_RELEASE "/fp:fast /Gy /GL /Gw /MD /MP /Oi /Os /GR- /GS-")
+  string(APPEND CMAKE_CXX_FLAGS_RELEASE " /fp:fast /Gy /GL /Gw /MD /MP /Oi /Os /GR- /GS-")
+  string(APPEND CMAKE_EXE_LINKER_FLAGS_RELEASE " /LTCG /OPT:REF /OPT:ICF /MERGE:_RDATA=.rdata")
 
-  # /LTCG /MANIFEST:NO /MERGE:_RDATA=.rdata /OPT:REF /OPT:ICF
-  add_link_options(
-        $<$<CONFIG:Release>:/NORESOURCE>
-        $<$<CONFIG:Release>:/LTCG>
-        $<$<CONFIG:Release>:/MANIFEST:NO>
-        $<$<CONFIG:Release>:/MERGE:_RDATA=.rdata>
-        $<$<CONFIG:Release>:/OPT:REF>
-        $<$<CONFIG:Release>:/OPT:ICF>
-    )
+  # 强烈推荐：显式禁用默认 manifest 生成（对 CMake + MSVC 非常有效）
+  set_target_properties(winfetch PROPERTIES
+    LINK_FLAGS_RELEASE " /MANIFEST:NO"
+  )
 endif()
 
 # 编译定义
